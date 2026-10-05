@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colochita de mi vida 🌷</title>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        min-height: 100vh;
+        overflow: hidden;
+        font-family: "Georgia", serif;
+        background: linear-gradient(180deg, #fff0f5, #f8dce8, #ead6ef);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    /* Fondo con pequeñas estrellas */
+    .estrellas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+    }
+    .estrella {
+        position: absolute;
+        color: rgba(255,255,255,.9);
+        animation: flotar 5s infinite ease-in-out;
+    }
+    @keyframes flotar {
+        0%,100% {
+            transform: translateY(0);
+            opacity: .4;
+        }
+        50% {
+            transform: translateY(-25px);
+            opacity: 1;
+        }
+    }
+    .contenedor {
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    h1 {
+        color: #9b5275;
+        font-size: 25px;
+        margin-bottom: 35px;
+        text-shadow: 0 2px 5px rgba(100,50,80,.15);
+    }
+    /* TULIPÁN */
+    .tulipan {
+        position: relative;
+        width: 180px;
+        height: 330px;
+        margin: auto;
+        cursor: pointer;
+        transition: transform .4s ease;
+    }
+    .tulipan:hover {
+        transform: scale(1.05);
+    }
+    /* Flor */
+    .flor {
+        position: absolute;
+        top: 20px;
+        left: 35px;
+        width: 110px;
+        height: 125px;
+        background: linear-gradient(135deg, #ff8fb3, #d95783);
+        border-radius: 55% 55% 45% 45%;
+        box-shadow:
+            inset 15px 10px 20px rgba(255,255,255,.25),
+            0 8px 20px rgba(120,40,80,.2);
+        z-index: 3;
+    }
+    .flor::before {
+        content: "";
+        position: absolute;
+        width: 55px;
+        height: 115px;
+        left: 8px;
+        top: 2px;
+        background: linear-gradient(160deg, #ffb0c8, #ec7097);
+        border-radius: 80% 20% 70% 30%;
+        transform: rotate(-15deg);
+    }
+    .flor::after {
+        content: "";
+        position: absolute;
+        width: 55px;
+        height: 115px;
+        right: 5px;
+        top: 0;
+        background: linear-gradient(200deg, #f59bb8, #c94d78);
+        border-radius: 20% 80% 30% 70%;
+        transform: rotate(15deg);
+    }
+    /* Tallo */
+    .tallo {
+        position: absolute;
+        width: 13px;
+        height: 185px;
+        background: linear-gradient(90deg, #4d9a65, #76bd7d, #397c50);
+        left: 84px;
+        top: 130px;
+        border-radius: 20px;
+        z-index: 1;
+    }
+    /* Hojas */
+    .hoja1,
+    .hoja2 {
+        position: absolute;
+        background: linear-gradient(135deg, #6fb878, #34794b);
+        z-index: 2;
+    }
+    .hoja1 {
+        width: 75px;
+        height: 35px;
+        left: 20px;
+        top: 210px;
+        border-radius: 100% 0 100% 0;
+        transform: rotate(-25deg);
+    }
+    .hoja2 {
+        width: 75px;
+        height: 35px;
+        right: 18px;
+        top: 240px;
+        border-radius: 0 100% 0 100%;
+        transform: rotate(25deg);
+    }
+    .mensaje-tocar {
+        margin-top: 18px;
+        color: #92516e;
+        font-size: 15px;
+        animation: latido 1.8s infinite;
+    }
+    @keyframes latido {
+        50% {
+            transform: scale(1.05);
+        }
+    }
+    /* COLLAGE */
+    .collage {
+        position: fixed;
+        inset: 0;
+        background: rgba(68,35,58,.72);
+        backdrop-filter: blur(8px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .6s ease;
+        z-index: 10;
+        padding: 20px;
+    }
+    .collage.activo {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .tarjeta {
+        width: min(92vw, 430px);
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 28px 20px;
+        border-radius: 28px;
+        background: linear-gradient(145deg, #fff7fa, #f8e7ef);
+        box-shadow: 0 20px 60px rgba(0,0,0,.3);
+        transform: scale(.7);
+        transition: transform .6s ease;
+        position: relative;
+    }
+    .collage.activo .tarjeta {
+        transform: scale(1);
+    }
+    .cerrar {
+        position: absolute;
+        right: 15px;
+        top: 12px;
+        border: none;
+        background: rgba(255,255,255,.8);
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        font-size: 20px;
+        color: #a35276;
+        cursor: pointer;
+    }
+    .titulo {
+        color: #a04e73;
+        font-size: 24px;
+        margin-bottom: 22px;
+    }
+    .frase {
+        background: rgba(255,255,255,.72);
+        margin: 13px 0;
+        padding: 17px 15px;
+        border-radius: 18px;
+        color: #70465b;
+        font-size: 17px;
+        line-height: 1.45;
+        box-shadow: 0 5px 15px rgba(100,50,80,.08);
+        animation: aparecer .8s ease both;
+    }
+    .frase:nth-child(2) { animation-delay: .2s; }
+    .frase:nth-child(3) { animation-delay: .4s; }
+    .frase:nth-child(4) { animation-delay: .6s; }
+    .frase:nth-child(5) { animation-delay: .8s; }
+    .frase:nth-child(6) { animation-delay: 1s; }
+    @keyframes aparecer {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .final {
+        margin-top: 22px;
+        color: #a04e73;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    /* Corazones flotantes */
+    .corazon {
+        position: fixed;
+        font-size: 20px;
+        animation: subir 4s linear forwards;
+        pointer-events: none;
+        z-index: 20;
+    }
+    @keyframes subir {
+        from {
+            transform: translateY(0) scale(.8);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(-100vh) scale(1.5);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="estrellas">
+    <span class="estrella" style="left:10%;top:15%;">✦</span>
+    <span class="estrella" style="left:80%;top:20%;">✧</span>
+    <span class="estrella" style="left:20%;top:70%;">♡</span>
+    <span class="estrella" style="left:85%;top:75%;">✦</span>
+    <span class="estrella" style="left:50%;top:10%;">✧</span>
+</div>
+<div class="contenedor">
+    <h1>Para mi cielito bello 🌷</h1>
+    <div class="tulipan" onclick="abrirCarta()">
+        <div class="flor"></div>
+        <div class="tallo"></div>
+        <div class="hoja1"></div>
+        <div class="hoja2"></div>
+    </div>
+    <div class="mensaje-tocar">
+        Toca el tulipán 🌷
+    </div>
+</div>
+<!-- COLLAGE DE FRASES -->
+<div class="collage" id="collage">
+    <div class="tarjeta">
+        <button class="cerrar" onclick="cerrarCarta()">×</button>
+        <div class="titulo">
+            Para mi bebé amada 💗
+        </div>
+        <div class="frase">
+            🌷 Eres la niña más bonita que Dios puso en mi vida.
+        </div>
+        <div class="frase">
+            💕 Me encanta verte, abrazarte y disfrutar cada momento a tu lado.
+        </div>
+        <div class="frase">
+            ✨ Tus ojitos tienen una forma de enamorarme y hacer que mi mundo se vuelva más bonito.
+        </div>
+        <div class="frase">
+            🥰 Amo tu carita, tus abrazos, tus besitos y cada pequeño detalle de ti.
+        </div>
+        <div class="frase">
+            🌙 Eres unica y tienes un corazón valioso y digno de ser amado.
+        </div>
+        <div class="frase">
+            💖 Mi corazón se siente feliz simplemente porque existes y formas parte de mi vida.
+        </div>
+        <div class="final">
+            Te adoro muchísimo, mi cielito bello. 🌷💗✨
+          </div>
+        <div class="final">
+          Mi corazón late por ti y me derrito de amor cuando te veo. 💗
+        </div>
+    </div>
+</div>
+<script>
+function abrirCarta() {
+    document.getElementById("collage").classList.add("activo");
+    // Crear corazones
+    for(let i = 0; i < 18; i++) {
+        setTimeout(() => {
+            const corazon = document.createElement("div");
+            corazon.className = "corazon";
+            const simbolos = ["💗","💕","💖","💘","🌷","✨"];
+            corazon.innerHTML =
+                simbolos[Math.floor(Math.random() * simbolos.length)];
+            corazon.style.left =
+                Math.random() * 100 + "vw";
+            corazon.style.bottom = "-30px";
+            corazon.style.animationDuration =
+                (3 + Math.random() * 3) + "s";
+            document.body.appendChild(corazon);
+            setTimeout(() => {
+                corazon.remove();
+            }, 6000);
+        }, i * 120);
+    }
+}
+function cerrarCarta() {
+    document.getElementById("collage").classList.remove("activo");
+}
+</script>
+</body>
+</html>
